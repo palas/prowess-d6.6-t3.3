@@ -1,0 +1,202 @@
+\documentclass[a4paper,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\setlength{\parskip}{\bigskipamount}
+\setlength{\parindent}{0pt}
+\usepackage{color}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[unicode=true,
+ bookmarks=false,
+ breaklinks=false,pdfborder={0 0 1},backref=section,colorlinks=true]
+ {hyperref}
+\hypersetup{
+ pdftex,linkcolor=blue,citecolor=blue,filecolor=blue,urlcolor=blue,pdftitle=,pdfauthor=,pdfsubject=,pdfkeywords=}
+\usepackage{breakurl}
+
+\makeatletter
+
+\special{papersize=\the\paperwidth,\the\paperheight}
+
+\usepackage{color}\usepackage{babel}
+
+
+
+
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+\usepackage{babel}
+\usepackage{amsfonts}\usepackage{color}\usepackage{array}\usepackage{hhline}
+
+% List styles
+\newcounter{questenum}
+\newcounter{techenum}
+\newcommand{\liststyleQuestion}{%
+\renewcommand\theenumi{\roman{enumi}}
+\renewcommand\theenumii{\alph{enumii}}
+\renewcommand\theenumiii{\arabic{enumiii}}
+\renewcommand\theenumiv{\arabic{enumiv}}
+\renewcommand\labelenumi{\theenumi.}
+\renewcommand\labelenumii{\theenumii.}
+\renewcommand\labelenumiii{\theenumiii.}
+\renewcommand\labelenumiv{\theenumiv.}
+}
+
+\newenvironment{questionenum}
+{ \liststyleQuestion
+  \enumerate
+  \setcounter{enumi}{\value{questenum}}
+  \bfseries
+  \itshape }
+{ \endenumerate
+  \setcounter{questenum}{\value{enumi}} }
+
+\newcommand{\liststyleTechnicalQuestion}{%
+\renewcommand\theenumi{\arabic{enumi}}
+\renewcommand\theenumii{\alph{enumii}}
+\renewcommand\theenumiii{\roman{enumiii}}
+\renewcommand\theenumiv{\arabic{enumiv}}
+\renewcommand\labelenumi{\theenumi.}
+\renewcommand\labelenumii{\theenumii.}
+\renewcommand\labelenumiii{\theenumiii.}
+\renewcommand\labelenumiv{\theenumiv.}
+}
+
+\newenvironment{techitemize}
+{ \liststyleTechnicalQuestion 
+  \itshape
+  \enumerate
+  \setcounter{enumi}{\value{techenum}} }
+{ \endenumerate
+  \setcounter{techenum}{\value{enumi}} }
+ 
+
+% Page layout (geometry)
+\setlength{\voffset}{-1in}
+\setlength{\hoffset}{-1in}
+\setlength{\topmargin}{1.249cm}
+\setlength{\oddsidemargin}{4.001cm}
+\setlength{\textheight}{22.037998cm}
+\setlength{\textwidth}{13.82cm}
+\setlength{\footskip}{2.582cm}
+\setlength{\headheight}{1.291cm}
+\setlength{\headsep}{1.291cm}
+% Footnote rule
+\setlength{\skip\footins}{0.119cm}
+\renewcommand{\footnoterule}{\vspace*{-0.018cm}\setlength\leftskip{0pt}\setlength\rightskip{0pt plus 
+1fil}\noindent\textcolor{black}{\rule{0.25\columnwidth}{0.018cm}}\vspace*{0.101cm}}
+% Pages styles
+
+\newcommand{\ps@Standard}{
+  \renewcommand\@oddhead{D6.6 / Pilots in property based testing, Pilot report \#6}
+  \renewcommand\@evenhead{\@oddhead}
+  \renewcommand\@oddfoot{\thepage{}}
+  \renewcommand\@evenfoot{\@oddfoot}
+  \renewcommand\thepage{\arabic{page}}
+}
+
+\title{}
+\author{}
+\date{2015-09-01}
+
+\makeatother
+
+
+\begin{document}
+
+\setcounter{page}{1}\pagestyle{Standard} \textbf{Task 3.3: Tools and techniques to model the differences between 
+versions of a system that are parametrized or configured in different ways.}
+
+\textit{Status: planned}
+
+This pilot study will focus on open source software, namely the Erlang/OTP \textbf{Dets} system, that provides 
+disk-based term storage case, and which underlies the mnesia Erlang database. The stored terms (called
+objects here) are tuples in which one element is defined to be the key, and a Dets table is a collection of objects 
+with the key at the same position stored on a file.
+
+Dets provides an appropriate case study for three reasons:
+
+\begin{itemize}
+\item There are three types of Dets tables: set, bag and duplicate\_bag, and these can be seen as significantly 
+different variants of a single parametrised model.
+\item There are two versions of the format used for storing objects on file are supported by Dets. The first version, 
+8, is the format always used for tables created by OTP R7 and earlier; the second version, 9, is the default version of 
+tables created by OTP R8 (and later OTP releases), but OTP R8 can create version 8 tables, and convert version
+8 tables to version 9, and \textit{vice versa}.
+\item Dets tables can also be compared with Ets tables, that provide an in memory variant of term storage. 
+\end{itemize}
+
+\begin{questionenum}
+\item What will you try to find out with this study
+\end{questionenum}
+
+
+The research questions we aim to answer in this pilot study are:
+
+\textit{A: Is it technically feasible to construct parametric models of Dets tables that}
+
+\begin{techitemize}
+\item express the difference between set, bag and duplicate\_bag variants?
+\item express the difference between successive versions of the Dets implementation?
+\item express the difference between Dets and Ets tables?
+\end{techitemize}
+
+\textit{B: Is the process of devising these parametric models worthwhile from a business point of view: can the process 
+be accomplished at a cost appropriate to the added value that they provide?}
+
+\textit{C: Do the parametric models effectively augment the existing models? This can be shown by discovering new 
+faults in the Dets system,or by uncovering ``past'' faults in older versions of the system?}
+
+\textit{D: Is the method assessed as accurate, quality enhancing and useful by the assessors of the pilot study?}
+
+\begin{questionenum}
+\item Who will execute this study
+\end{questionenum}
+
+This pilot will be executed by staff at Kent. Other consortium members will be asked to assess the results of the work 
+done by the Kent staff.
+
+\begin{questionenum}
+\item What data will you measure in order to get some answers to the things you want to find out.
+\end{questionenum}
+
+A: These questions will be answered through the construction of the models, and through an assessment of this process 
+by the assessors of the pilot study.
+
+B: In order to answer these questions, participants in the study will keep an accurate record of the time taken to 
+develop the models. Once complete, the other measurements will be made on the completed code.
+
+C: The data here will be generated through the corresponding testing activity.
+
+D: These questions will be answered by asking assessors to complete an appropriate questionnaire.
+
+\begin{questionenum}
+\item What will be the steps to execute this study and collect the data
+\end{questionenum}
+
+The initial work will be undertaken by staff from Kent, and its results will be assessed by staff from another partner 
+in the consortium.
+
+\begin{questionenum}
+\item What were the results?
+\end{questionenum}
+
+Yet to be done.
+
+\begin{questionenum}
+\item Threats to validity
+\end{questionenum}
+
+\begin{itemize}
+\item Data points are low. 
+\item Users have high domain knowledge not necessarily representative of an average user. 
+\item Specialised nature of the particular models considered. 
+\end{itemize}
+
+\clearpage
+
+\textbf{Bibliography and references}
+
+\end{document}
